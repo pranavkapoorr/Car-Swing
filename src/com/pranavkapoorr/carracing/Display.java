@@ -10,7 +10,7 @@ public class Display{
 	private String title;
 	private int width, height;
 	private JFrame jFrame;
-	private KeyListener key;
+	public static KeyListener key;
 	public static Canvas canvas;
 	
 	public Display(String title, int width, int height) {
@@ -27,7 +27,14 @@ public class Display{
 			}
 			@Override
 			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub	
+				if(e.getKeyCode()== KeyEvent.VK_RIGHT)
+		            GameSetUp.x += 5;
+		        else if(e.getKeyCode()== KeyEvent.VK_LEFT)
+		        	GameSetUp.x -= 5;
+		        else if(e.getKeyCode()== KeyEvent.VK_DOWN)
+		        	GameSetUp.y +=5;
+		        else if(e.getKeyCode()== KeyEvent.VK_UP)
+		        	GameSetUp.y -=5;
 			}
 		};
 		createDisplay();
@@ -37,6 +44,7 @@ public class Display{
 		jFrame = new JFrame(title);
 		jFrame.setSize(width, height);
 		jFrame.add(canvas);
+		jFrame.addKeyListener(key);
 		jFrame.setVisible(true);
 	}
 }

@@ -1,5 +1,6 @@
 package com.pranavkapoorr.carracing;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -10,7 +11,7 @@ public class GameSetUp implements Runnable{
 	private Graphics graphics;
 	private String title;
 	private int width,height;
-	private int x,y;
+	public static volatile int x,y;
 	
 	public GameSetUp(String title, int width, int height) {
 		this.title = title;
@@ -45,14 +46,12 @@ public class GameSetUp implements Runnable{
 		}
 		graphics = bufferStrategy.getDrawGraphics();
 		graphics.clearRect(0, 0, width, height);
-		graphics.drawRect(12, y, 60, 40);
+		graphics.setColor(Color.RED);
+		graphics.fillRect(x, y, 60, 40);
 		
 		
 		bufferStrategy.show();
 		graphics.dispose();
-	}
-	private void moveObject() {
-		y++;
 	}
 	
 	@Override
@@ -65,7 +64,6 @@ public class GameSetUp implements Runnable{
 			delta = delta + (System.nanoTime() - current)/timePerTick;
 			current = System.nanoTime();
 			if(delta >= 1){
-				moveObject();
 				render();
 				delta--;
 			}
