@@ -26,8 +26,8 @@ public class GameSetUp implements Runnable{
 		init();
 	}
 	private void init(){
-		x = 0;
-		y = 0;
+		x = 50;
+		y = 50;
 		try {
 			image = ImageIO.read(new File("src/resources/Car.png"));
 		} catch (IOException e) {
@@ -59,7 +59,9 @@ public class GameSetUp implements Runnable{
 		
 		graphics.clearRect(0, 0, width, height);
 		graphics.setColor(Color.RED);
-		graphics.drawImage(image, x, y, 60, 40,null);
+		graphics.drawLine(10, 0, 10, height);
+		graphics.drawImage(image, x, y, 40, 60,null);
+		graphics.drawLine(width-10, 0, width-10, height);
 		
 		
 		bufferStrategy.show();
