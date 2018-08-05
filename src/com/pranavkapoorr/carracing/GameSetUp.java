@@ -2,6 +2,8 @@ package com.pranavkapoorr.carracing;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -56,12 +58,16 @@ public class GameSetUp implements Runnable{
 			return;
 		}
 		graphics = bufferStrategy.getDrawGraphics();
-		
 		graphics.clearRect(0, 0, width, height);
 		graphics.setColor(Color.RED);
-		graphics.drawLine(10, 0, 10, height);
-		graphics.drawImage(image, x, y, 40, 60,null);
+		
+		graphics.drawLine(10, 0, 10, height);//vertical lines
 		graphics.drawLine(width-10, 0, width-10, height);
+		
+		graphics.drawLine(0, 10, width, 10);//horizontal
+		graphics.drawLine(0, height-10, width, height-10);
+		
+		graphics.drawImage(image, x, y, 40, 60,null);
 		
 		
 		bufferStrategy.show();
