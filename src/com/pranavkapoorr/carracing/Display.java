@@ -1,23 +1,22 @@
 package com.pranavkapoorr.carracing;
-
-import java.awt.Canvas;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.Color;
 
 public class Display{
 	private String title;
 	private int width, height;
 	private JFrame jFrame;
 	public static KeyListener key;
-	public static Canvas canvas;
+	public static JPanel mainPanel;
 	
 	public Display(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
-		canvas = new Canvas();
 		key = new KeyListener() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -42,9 +41,12 @@ public class Display{
 	
 	private void createDisplay(){
 		jFrame = new JFrame(title);
-		jFrame.setSize(width, height);
-		jFrame.add(canvas);
+		jFrame.setSize(600,400);
+		mainPanel = new JPanel();
+		mainPanel.setBackground(Color.WHITE);
+		mainPanel.setSize(width, height);
 		jFrame.addKeyListener(key);
+		jFrame.getContentPane().add(mainPanel);
 		jFrame.setVisible(true);
 	}
 }
