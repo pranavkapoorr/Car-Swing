@@ -21,6 +21,7 @@ public class GameSetUp implements Runnable{
 	public static volatile int x,y;
 	BufferedImage carImage;
 	BufferedImage grassImage;
+	BufferedImage roadImage;
 	
 	
 	public GameSetUp(String title, int width, int height) {
@@ -33,8 +34,16 @@ public class GameSetUp implements Runnable{
 		x = 50;
 		y = 50;
 		loadGrass();
+		loadRoad();
 		loadCar();
 		display = new Display(title, width, height);
+	}
+	private void loadRoad() {
+		try {
+			roadImage = ImageIO.read(new File("src/resources/road.jpg"));
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 	private void loadCar() {
 		try {
@@ -69,8 +78,9 @@ public class GameSetUp implements Runnable{
 		graphics.clearRect(0, 0, width, height);
 		graphics.setColor(Color.RED);
 
-		graphics.drawImage(grassImage, 0, 0, 40, height,null);
-		graphics.drawImage(grassImage, width-40, 0, 40, height,null);
+		graphics.drawImage(grassImage, 0, 0, 150, height,null);
+		graphics.drawImage(roadImage, 151, 0, width-300, height,null);
+		graphics.drawImage(grassImage, width-150, 0, 150, height,null);
 		graphics.drawImage(carImage, x, y, 40, 60,null);
 		
 		graphics.dispose();
