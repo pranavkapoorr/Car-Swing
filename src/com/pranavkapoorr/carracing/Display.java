@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
+import javax.swing.JLabel;
 
 public class Display{
 	private String title;
@@ -12,6 +13,7 @@ public class Display{
 	private JFrame jFrame;
 	public static KeyListener key;
 	public static JPanel mainPanel;
+	private JLabel gameOverLabel;
 	
 	public Display(String title, int width, int height) {
 		this.title = title;
@@ -27,9 +29,19 @@ public class Display{
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode()== KeyEvent.VK_RIGHT){
-		            GameSetUp.carX += 10;
+		            if(GameSetUp.carX <= GameSetUp.roadX + GameSetUp.roadWidth - (GameSetUp.carWidth + GameSetUp.carWidth/2-9)){//-9 to allow gameover
+		            	if(GameSetUp.carX == GameSetUp.roadX + GameSetUp.roadWidth - (GameSetUp.carWidth + GameSetUp.carWidth/2-9)){
+		            		GameSetUp.gameOver = true;
+		            	}
+		            	GameSetUp.carX += 15;
+		            }
 				}else if(e.getKeyCode()== KeyEvent.VK_LEFT){
-		        	GameSetUp.carX -= 10;
+					if(GameSetUp.carX >= GameSetUp.roadX ){//+6 to allow gameover
+						if(GameSetUp.carX == 160){
+							GameSetUp.gameOver = true;
+						}
+						GameSetUp.carX -= 15;
+					}
 				}else if(e.getKeyCode()== KeyEvent.VK_DOWN){
 		        	//GameSetUp.carY +=10;
 					GameSetUp.roadY -= 10;
@@ -46,13 +58,18 @@ public class Display{
 	
 	private void createDisplay(){
 		jFrame = new JFrame(title);
+		jFrame.setResizable(false);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jFrame.setSize(width,height);
+		jFrame.setSize(600,400);
 		mainPanel = new JPanel();
 		mainPanel.setBackground(Color.WHITE);
 		mainPanel.setSize(width, height);
 		jFrame.addKeyListener(key);
 		jFrame.getContentPane().add(mainPanel);
+		gameOverLabel = new JLabel();
+		if(GameSetUp.gameOver){gameOverLabel.setText("Game-Over");}else{gameOverLabel.setText("");}
+		gameOverLabel.setForeground(Color.RED);
+		mainPanel.add(gameOverLabel);
 		jFrame.setVisible(true);
 	}
 }

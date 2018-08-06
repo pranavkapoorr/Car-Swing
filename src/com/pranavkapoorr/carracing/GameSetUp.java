@@ -12,10 +12,11 @@ public class GameSetUp implements Runnable{
 	private Graphics graphics;
 	private String title;
 	private int width,height;
-	public static volatile int carX,carY,grassX,grassY,roadX,roadY;
+	public static volatile int carX,carY,grassX,grassY,roadX,roadY,grassWidth,carWidth,roadWidth;
 	BufferedImage carImage;
 	BufferedImage grassImage;
 	BufferedImage roadImage;
+	public static volatile boolean gameOver;
 	
 	
 	public GameSetUp(String title, int width, int height) {
@@ -25,11 +26,15 @@ public class GameSetUp implements Runnable{
 		init();
 	}
 	private void init(){
+		gameOver = false;
 		carX = 160;
+		grassWidth = 150;
 		carY = height-160;
-		roadX = 151;
+		roadX = grassWidth + 1;
 		roadY = -10000;
 		grassY = -10000;
+		carWidth = 40;
+		roadWidth = 2 * grassWidth;
 		loadGrass();
 		loadRoad();
 		loadCar();
@@ -77,20 +82,20 @@ public class GameSetUp implements Runnable{
 		drawGrass(graphics);
 		drawRoad(graphics);
 		
-		graphics.drawImage(carImage, carX, carY, 40, 60,null);
+		graphics.drawImage(carImage, carX, carY, carWidth, 60,null);
 		
 		graphics.dispose();
 	}
 	public void drawGrass(Graphics graphics){
-		for(int i=roadY;i<=10000;i+=grassImage.getHeight()){
-			graphics.drawImage(grassImage, 0, i, 150, grassImage.getHeight(),null);
-			graphics.drawImage(grassImage, width-150, i, 150, grassImage.getHeight(),null);
+		for(int i = roadY; i <= 10000; i+= grassImage.getHeight()){
+			graphics.drawImage(grassImage, 0, i, grassWidth, grassImage.getHeight(),null);
+			graphics.drawImage(grassImage, width-grassWidth, i, 150, grassImage.getHeight(),null);
 		}
 	}
 	public void drawRoad(Graphics graphics){
 		
-		for(int i=roadY;i<=10000;i+=roadImage.getHeight()){
-			graphics.drawImage(roadImage, roadX, i, width-300, roadImage.getHeight(),null);
+		for(int i = roadY; i <= 10000; i += roadImage.getHeight()){
+			graphics.drawImage(roadImage, roadX, i, roadWidth, roadImage.getHeight(),null);
 		}
 	}
 	@Override
