@@ -1,24 +1,18 @@
 package com.pranavkapoorr.carracing;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 import javax.imageio.ImageIO;
 
 public class GameSetUp implements Runnable{
 	private Thread gameThread;
 	private Display display;
-	private BufferStrategy bufferStrategy;
 	private Graphics graphics;
 	private String title;
 	private int width,height;
-	public static volatile int x,y;
+	public static volatile int carX,carY,grassX,grassY,roadX,roadY;
 	BufferedImage carImage;
 	BufferedImage grassImage;
 	BufferedImage roadImage;
@@ -31,8 +25,11 @@ public class GameSetUp implements Runnable{
 		init();
 	}
 	private void init(){
-		x = 50;
-		y = 50;
+		carX = 160;
+		carY = height-160;
+		roadX = 151;
+		roadY = 0;
+		grassY = 0;
 		loadGrass();
 		loadRoad();
 		loadCar();
@@ -76,16 +73,21 @@ public class GameSetUp implements Runnable{
 	public void render() {
 		graphics = Display.mainPanel.getGraphics();
 		graphics.clearRect(0, 0, width, height);
-		graphics.setColor(Color.RED);
 
-		graphics.drawImage(grassImage, 0, 0, 150, height,null);
-		graphics.drawImage(roadImage, 151, 0, width-300, height,null);
-		graphics.drawImage(grassImage, width-150, 0, 150, height,null);
-		graphics.drawImage(carImage, x, y, 40, 60,null);
+		drawGrass(graphics);
+		drawRoad(graphics);
+		
+		graphics.drawImage(carImage, carX, carY, 40, 60,null);
 		
 		graphics.dispose();
 	}
-	
+	public void drawGrass(Graphics graphics){
+		graphics.drawImage(grassImage, 0, grassY, 150, height,null);
+		graphics.drawImage(grassImage, width-150, grassY, 150, height,null);
+	}
+	public void drawRoad(Graphics graphics){
+		graphics.drawImage(roadImage, roadX, roadY, width-300, height,null);
+	}
 	@Override
 	public void run() {
 		int fps = 50;

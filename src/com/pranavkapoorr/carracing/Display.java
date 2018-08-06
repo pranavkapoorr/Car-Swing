@@ -26,14 +26,19 @@ public class Display{
 			}
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()== KeyEvent.VK_RIGHT)
-		            GameSetUp.x += 5;
-		        else if(e.getKeyCode()== KeyEvent.VK_LEFT)
-		        	GameSetUp.x -= 5;
-		        else if(e.getKeyCode()== KeyEvent.VK_DOWN)
-		        	GameSetUp.y +=5;
-		        else if(e.getKeyCode()== KeyEvent.VK_UP)
-		        	GameSetUp.y -=5;
+				if(e.getKeyCode()== KeyEvent.VK_RIGHT){
+		            GameSetUp.carX += 10;
+				}else if(e.getKeyCode()== KeyEvent.VK_LEFT){
+		        	GameSetUp.carX -= 10;
+				}else if(e.getKeyCode()== KeyEvent.VK_DOWN){
+		        	//GameSetUp.carY +=10;
+					GameSetUp.roadY -= 10;
+					GameSetUp.grassY -= 5;
+		        }else if(e.getKeyCode()== KeyEvent.VK_UP){
+		        	//GameSetUp.carY -=10;
+					GameSetUp.roadY += 10;
+					GameSetUp.grassY += 5;
+		        }
 			}
 		};
 		createDisplay();
@@ -41,7 +46,8 @@ public class Display{
 	
 	private void createDisplay(){
 		jFrame = new JFrame(title);
-		jFrame.setSize(600,400);
+		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jFrame.setSize(width,height);
 		mainPanel = new JPanel();
 		mainPanel.setBackground(Color.WHITE);
 		mainPanel.setSize(width, height);
