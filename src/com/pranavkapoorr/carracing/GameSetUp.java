@@ -28,8 +28,8 @@ public class GameSetUp implements Runnable{
 		carX = 160;
 		carY = height-160;
 		roadX = 151;
-		roadY = 0;
-		grassY = 0;
+		roadY = -10000;
+		grassY = -10000;
 		loadGrass();
 		loadRoad();
 		loadCar();
@@ -82,11 +82,16 @@ public class GameSetUp implements Runnable{
 		graphics.dispose();
 	}
 	public void drawGrass(Graphics graphics){
-		graphics.drawImage(grassImage, 0, grassY, 150, height,null);
-		graphics.drawImage(grassImage, width-150, grassY, 150, height,null);
+		for(int i=roadY;i<=10000;i+=grassImage.getHeight()){
+			graphics.drawImage(grassImage, 0, i, 150, grassImage.getHeight(),null);
+			graphics.drawImage(grassImage, width-150, i, 150, grassImage.getHeight(),null);
+		}
 	}
 	public void drawRoad(Graphics graphics){
-		graphics.drawImage(roadImage, roadX, roadY, width-300, height,null);
+		
+		for(int i=roadY;i<=10000;i+=roadImage.getHeight()){
+			graphics.drawImage(roadImage, roadX, i, width-300, roadImage.getHeight(),null);
+		}
 	}
 	@Override
 	public void run() {
