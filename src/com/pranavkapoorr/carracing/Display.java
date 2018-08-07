@@ -13,7 +13,6 @@ public class Display{
 	private JFrame jFrame;
 	public static KeyListener key;
 	public static JPanel mainPanel;
-	private JLabel gameOverLabel;
 	
 	public Display(String title, int width, int height) {
 		this.title = title;
@@ -66,10 +65,6 @@ public class Display{
 		mainPanel.setSize(width, height);
 		jFrame.addKeyListener(key);
 		jFrame.getContentPane().add(mainPanel);
-		gameOverLabel = new JLabel();
-		if(GameSetUp.gameOver){gameOverLabel.setText("Game-Over");}else{gameOverLabel.setText("");}
-		gameOverLabel.setForeground(Color.RED);
-		mainPanel.add(gameOverLabel);
 		jFrame.setVisible(true);
 	}
 }
